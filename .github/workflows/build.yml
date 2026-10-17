@@ -1,0 +1,39 @@
+name: Build Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Build Proxy DLL
+        run: |
+          mkdir bin
+          cl.exe /utf-8 /O2 /GL /EHa /LD src\dllmain.cpp /Fe:bin\version.dll /link /safeseh:no /LTCG /OPT:REF /OPT:ICF
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: version.dll
+          path: bin/version.dll
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: bin/version.dll
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
