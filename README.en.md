@@ -22,6 +22,13 @@ A standalone proxy DLL (`version.dll`) weighing only ~11 KB. Zero external depen
 3. **Enable Feature**: Launch NVIDIA Broadcast and navigate to the "Camera" settings. The "Video Frame Generation" toggle is now unlocked—turn it on to output smooth 60 FPS video.
 4. **Uninstall**: Exit the application and delete `version.dll` from the directory to revert to the default state.
 
+## Screenshots & Comparison
+
+| Before Patch (Restricted) | After Patch (Unlocked 60 FPS) |
+| :---: | :---: |
+| ![Before Patch](docs/before.png) | ![After Patch](docs/after.png) |
+| ![Before Detail](docs/before.2.png) | ![After Detail](docs/after.2.png) |
+
 ## FAQ / Troubleshooting
 
 - **Toggle is still grayed out**: Ensure your GPU driver is updated to 617.42+, and verify that `version.dll` is placed in the installation root directory (alongside `NVIDIA Broadcast.exe`).
